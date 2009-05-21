@@ -19,6 +19,16 @@ describe 'articles/index.html.haml' do
     response.should have_text(Regexp.new(Regexp.escape(@article.content)))
   end
   
+  it 'should format the article content as markdown' do
+    @article.content = "
+  * one
+  * two
+  * three
+"
+    do_render
+    response.should have_tag('li', /one/)
+  end
+  
   it 'should not error if the article is nil' do
     assigns[:article] = nil
     do_render

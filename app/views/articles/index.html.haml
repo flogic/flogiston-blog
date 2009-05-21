@@ -1,4 +1,4 @@
 -if @article
   %h2= @article.title
 
-  .article= @article.content
+  .article= format_text(@article.content)
