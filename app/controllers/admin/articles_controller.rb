@@ -10,4 +10,8 @@ class Admin::ArticlesController < ApplicationController
     article.save
     redirect_to admin_article_path(article)
   end
+  
+  def show
+    @article = Article.find(params[:id])
+  end
 end

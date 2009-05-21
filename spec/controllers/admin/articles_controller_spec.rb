@@ -49,4 +49,40 @@ describe Admin::ArticlesController do
       response.should redirect_to(admin_article_path(Article.first))
     end
   end
+  
+  describe 'show' do
+    before :each do
+      @article = Article.generate!
+      @article_id = @article.id.to_s
+    end
+    
+    def do_get
+      get :show, :id => @article_id
+    end
+    
+    it 'should be successful' do
+      do_get
+      response.should be_success
+    end
+    
+    it 'should find the requested article' do
+      Article.expects(:find).with(@article_id).returns(@article)
+      do_get
+    end
+    
+    it 'should make the found article' do
+      do_get
+      assigns[:article].should == @article
+    end
+    
+    it 'should render the show template' do
+      do_get
+      response.should render_template('admin/articles/show')
+    end
+    
+    it 'should use the admin layout' do
+      do_get
+      response.layout.should == 'layouts/admin'
+    end
+  end
 end
