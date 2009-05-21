@@ -85,4 +85,35 @@ describe Admin::ArticlesController do
       response.layout.should == 'layouts/admin'
     end
   end
+  
+  describe 'edit' do
+    before :each do
+      @article = Article.generate!
+      @article_id = @article.id.to_s
+    end
+    
+    def do_get
+      get :edit, :id => @article_id
+    end
+    
+    it 'should find the requested article' do
+      Article.expects(:find).with(@article_id).returns(@article)
+      do_get
+    end
+    
+    it 'should make the found article' do
+      do_get
+      assigns[:article].should == @article
+    end
+    
+    it 'should render the edit template' do
+      do_get
+      response.should render_template('admin/articles/edit')
+    end
+    
+    it 'should use the admin layout' do
+      do_get
+      response.layout.should == 'layouts/admin'
+    end
+  end
 end
