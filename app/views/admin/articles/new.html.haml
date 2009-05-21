@@ -1,0 +1,9 @@
+-form_for [:admin, @article] do |f|
+  %label{ :for => 'article_title' } Title:
+  =f.text_field :title
+  %br
+  %label{ :for => 'article_content' } Content:
+  %br
+  =f.text_area  :content
+  %br
+  =f.submit
