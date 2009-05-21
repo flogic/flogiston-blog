@@ -27,4 +27,26 @@ describe Admin::ArticlesController do
       response.layout.should == 'layouts/admin'
     end
   end
+  
+  describe 'create' do
+    def do_post
+      post :create, :article => { :title => 'What I Did This Summer', :content => "Nothing, because I'm really lazy." }
+    end
+    
+    it 'should create a new article' do
+      lambda { do_post }.should change(Article, :count).by(1)
+    end
+    
+    it 'should use the provided attributes when creating the article' do
+      Article.delete_all
+      do_post
+      Article.first.title.should == 'What I Did This Summer'
+    end
+    
+    it 'should redirect to the admin show view for the new article' do
+      Article.delete_all
+      do_post
+      response.should redirect_to(admin_article_path(Article.first))
+    end
+  end
 end
