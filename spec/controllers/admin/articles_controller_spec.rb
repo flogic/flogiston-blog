@@ -116,4 +116,31 @@ describe Admin::ArticlesController do
       response.layout.should == 'layouts/admin'
     end
   end
+  
+  describe 'update' do
+    before :each do
+      @article = Article.generate!(:title => 'What I Did Last Summer', :content => 'Everything!')
+      @article_id = @article.id.to_s
+    end
+    
+    def do_put
+      put :update, :id => @article_id, :article => { :title => 'What I Did This Summer', :content => "Nothing, because I'm really lazy." }
+    end
+    
+    it 'should find the requested article' do
+      Article.expects(:find).with(@article_id).returns(@article)
+      do_put
+    end
+    
+    it 'should use the provided attributes when updating the article' do
+      do_put
+      @article.reload
+      @article.title.should == 'What I Did This Summer'
+    end
+    
+    it 'should redirect to the admin show view for the requested article' do
+      do_put
+      response.should redirect_to(admin_article_path(@article))
+    end
+  end
 end

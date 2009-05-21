@@ -18,4 +18,10 @@ class Admin::ArticlesController < ApplicationController
   def edit
     @article = Article.find(params[:id])
   end
+  
+  def update
+    article = Article.find(params[:id])
+    article.update_attributes(params[:article])
+    redirect_to admin_article_path(article)
+  end
 end
