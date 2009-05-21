@@ -2,6 +2,9 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.resources :articles
   end
+  
+  map.resources :articles, :only => :index
+  map.root :controller => 'articles', :action => 'index'
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
