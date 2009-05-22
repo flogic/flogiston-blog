@@ -1,6 +1,4 @@
-class Admin::ArticlesController < ApplicationController
-  layout 'admin'
-  
+class Admin::ArticlesController < AdminController
   def index
     @articles = Article.all(:order => 'published_at DESC')
   end
