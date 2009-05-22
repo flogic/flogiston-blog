@@ -49,4 +49,28 @@ describe Article do
       article.published_at.should == article.created_at
     end
   end
+  
+  describe 'as a class' do
+    it 'should be able to give the most recent article' do
+      Article.should respond_to(:latest)
+    end
+    
+    describe 'giving the most recent article' do
+      it 'should return the article with the latest publication time' do
+        t = Time.zone.now
+        Article.delete_all
+        articles = []
+        articles.push Article.generate!(:published_at => t - 30)
+        articles.push Article.generate!(:published_at => t + 500)
+        articles.push Article.generate!(:published_at => t + 3)
+        
+        Article.latest.should == articles[1]
+      end
+      
+      it 'should return nil if there are no articles' do
+        Article.delete_all
+        Article.latest.should be_nil
+      end
+    end
+  end
 end

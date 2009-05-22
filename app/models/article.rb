@@ -1,4 +1,9 @@
 class Article < ActiveRecord::Base
+  class << self
+    def latest
+      find(:first, :order => 'published_at DESC')
+    end
+  end
   
   private
   
