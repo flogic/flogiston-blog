@@ -33,4 +33,9 @@ describe 'admin/articles/show.html.haml' do
     do_render
     response.should have_tag('a[href=?]', edit_admin_article_path(@article))
   end
+  
+  it 'should include a link to the admin articles index' do
+    do_render
+    response.should have_tag('a[href=?]', admin_articles_path)
+  end
 end

@@ -57,4 +57,9 @@ describe 'admin/articles/edit.html.haml' do
       end
     end
   end
+  
+  it 'should link to the article' do
+    do_render
+    response.should have_tag('a[href=?]', admin_article_path(@article))
+  end
 end
