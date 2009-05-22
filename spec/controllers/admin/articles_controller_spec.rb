@@ -1,6 +1,42 @@
 require File.expand_path(File.join(File.dirname(__FILE__), %w[.. .. spec_helper]))
 
 describe Admin::ArticlesController do
+  describe 'index' do
+    before :each do
+      @articles = Array.new(3) { sleep 1; Article.generate! }
+    end
+    
+    def do_get
+      get :index
+    end
+    
+    it 'should be successful' do
+      do_get
+      response.should be_success
+    end
+    
+    it 'should make the articles available to the view in creation order, most recent first' do
+      do_get
+      assigns[:articles].should == @articles.reverse
+    end
+    
+    it 'should make an empty array available to the view if there are no articles' do
+      Article.delete_all
+      do_get
+      assigns[:articles].should == []
+    end
+    
+    it 'should render the index template' do
+      do_get
+      response.should render_template('admin/articles/index')
+    end
+    
+    it 'should use the admin layout' do
+      do_get
+      response.layout.should == 'layouts/admin'
+    end
+  end
+  
   describe 'new' do
     def do_get
       get :new

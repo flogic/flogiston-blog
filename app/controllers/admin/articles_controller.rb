@@ -1,6 +1,10 @@
 class Admin::ArticlesController < ApplicationController
   layout 'admin'
   
+  def index
+    @articles = Article.all(:order => 'created_at DESC')
+  end
+  
   def new
     @article = Article.new
   end

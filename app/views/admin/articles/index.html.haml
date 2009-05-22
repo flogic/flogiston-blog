@@ -1,0 +1,7 @@
+=link_to '(new article)', new_admin_article_path
+%br
+%ol#articles
+  -@articles.each do |article|
+    %li
+      =link_to article.title, admin_article_path(article)
+      =link_to '(edit)', edit_admin_article_path(article)
