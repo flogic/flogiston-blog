@@ -1,7 +1,10 @@
 class Article < ActiveRecord::Base
+  
+  default_scope :order => 'published_at DESC'
+  
   class << self
     def latest
-      find(:first, :order => 'published_at DESC')
+      first
     end
   end
   

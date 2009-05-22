@@ -72,5 +72,27 @@ describe Article do
         Article.latest.should be_nil
       end
     end
+    
+    it 'should return articles in publication time order, most recent first' do
+      t = Time.zone.now
+      Article.delete_all
+      articles = []
+      articles.push Article.generate!(:published_at => t - 30)
+      articles.push Article.generate!(:published_at => t + 500)
+      articles.push Article.generate!(:published_at => t + 3)
+      
+      Article.all.should == articles.values_at(1,2,0)
+    end
+    
+    it 'should allow article order to be overridden' do
+      t = Time.zone.now
+      Article.delete_all
+      articles = []
+      articles.push Article.generate!(:published_at => t - 30)
+      articles.push Article.generate!(:published_at => t + 500)
+      articles.push Article.generate!(:published_at => t + 3)
+      
+      Article.all(:order => 'published_at ASC').should == articles.values_at(0,2,1)
+    end
   end
 end
