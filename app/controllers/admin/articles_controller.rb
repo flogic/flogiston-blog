@@ -1,6 +1,6 @@
 class Admin::ArticlesController < AdminController
   def index
-    @articles = Article.all(:order => 'published_at DESC')
+    @articles = Article.all
   end
   
   def new
