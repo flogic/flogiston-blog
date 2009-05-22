@@ -2,7 +2,7 @@ class Admin::ArticlesController < ApplicationController
   layout 'admin'
   
   def index
-    @articles = Article.all(:order => 'created_at DESC')
+    @articles = Article.all(:order => 'published_at DESC')
   end
   
   def new

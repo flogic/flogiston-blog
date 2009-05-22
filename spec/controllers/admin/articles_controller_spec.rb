@@ -3,7 +3,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), %w[.. .. spec_helper]
 describe Admin::ArticlesController do
   describe 'index' do
     before :each do
-      @articles = Array.new(3) { sleep 1; Article.generate! }
+      @articles = Array.new(3) { |i|  Article.generate!(:published_at => Time.zone.now + i) }
     end
     
     def do_get

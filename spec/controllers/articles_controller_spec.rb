@@ -22,8 +22,7 @@ describe ArticlesController do
     
     it 'should make the most-recently created article available to the view' do
       Article.generate!
-      sleep(2)
-      last_article = Article.generate!
+      last_article = Article.generate!(:published_at => Time.zone.now + 123456789)
       do_get
       assigns[:article].should == last_article
     end

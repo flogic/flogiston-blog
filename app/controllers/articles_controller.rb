@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
   def index
-    @article = Article.first(:order => 'created_at DESC')
+    @article = Article.first(:order => 'published_at DESC')
   end
 end
