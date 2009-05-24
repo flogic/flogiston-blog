@@ -1,4 +1,6 @@
 class Admin::ArticlesController < AdminController
+  helper 'articles'
+  
   def index
     @articles = Article.all
   end
