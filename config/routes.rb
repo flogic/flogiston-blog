@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :articles
   end
   
-  map.resources :articles, :only => :index
+  map.resources :articles, :only => [:index, :show]
   map.root :controller => 'articles', :action => 'index'
 
   map.connect ':controller/:action/:id'
