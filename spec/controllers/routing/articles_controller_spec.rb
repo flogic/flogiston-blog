@@ -19,9 +19,5 @@ describe ArticlesController do
     it "should generate params { :controller => 'articles', action => 'show', :id => '1' } from GET /articles/1" do
       params_from(:get, '/articles/1').should == { :controller => 'articles', :action => 'show', :id => '1' }
     end
-
-    it "should generate params { :controller => 'articles', action => 'index' } from GET /" do
-      params_from(:get, '/').should == { :controller => 'articles', :action => 'index' }
-    end
   end
 end

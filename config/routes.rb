@@ -4,8 +4,8 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resources :articles, :only => [:index, :show]
-  map.root :controller => 'articles', :action => 'index'
-
+  map.root :controller => 'dashboard', :action => 'index'
+  
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
