@@ -114,7 +114,17 @@ describe 'the plugin install.rb script' do
       do_install
     end
   end
-
+  
+  it 'should copy the plugin init file to the plugin root directory' do
+    FileUtils.expects(:copy).with(plugin_path('lib/plugin-init.rb'), plugin_path('init.rb'))
+    do_install
+  end
+  
+  it 'should copy the plugin unlazy-loading initializer file to the app initializers directory' do
+    FileUtils.expects(:copy).with(plugin_path('lib/initializer-unlazy_load.rb'), rails_path('config/initializers/unlazy_load.rb'))
+    do_install
+  end
+  
   it 'should have rails run the plugin installation template' do
     self.expects(:system).with("rake rails:template LOCATION=#{plugin_path('templates/plugin-install.rb')}")
     do_install
