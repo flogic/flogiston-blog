@@ -48,5 +48,5 @@ FileUtils.copy(plugin_path('lib/initializer-unlazy_load.rb'), rails_path('config
 # run our Rails template to insure needed gems and plugins are installed
 system("rake rails:template LOCATION=#{plugin_path('templates/plugin-install.rb')}")
 
-# # and output our README
-# puts readme_contents
+# and output our README
+puts readme_contents

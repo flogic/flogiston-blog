@@ -130,33 +130,33 @@ describe 'the plugin install.rb script' do
     do_install
   end
 
-  # it 'should display the contents of the plugin README file' do
-  #   self.stubs(:readme_contents).returns('README CONTENTS')
-  #   self.expects(:puts).with('README CONTENTS')
-  #   do_install
-  # end
-  # 
-  # describe 'readme_contents' do
-  #   it 'should work without arguments' do
-  #     do_install
-  #     lambda { readme_contents }.should_not raise_error(ArgumentError)
-  #   end
-  # 
-  #   it 'should accept no arguments' do
-  #     do_install
-  #     lambda { readme_contents(:foo) }.should raise_error(ArgumentError)
-  #   end
-  # 
-  #   it 'should read the plugin README.markdown file' do
-  #     do_install
-  #     IO.expects(:read).with(plugin_path('README.markdown'))
-  #     readme_contents
-  #   end
-  # 
-  #   it 'should return the contents of the plugin README.markdown file' do
-  #     do_install
-  #     IO.stubs(:read).with(plugin_path('README.markdown')).returns('README CONTENTS')
-  #     readme_contents.should == 'README CONTENTS'
-  #   end
-  # end
+  it 'should display the contents of the plugin README file' do
+    self.stubs(:readme_contents).returns('README CONTENTS')
+    self.expects(:puts).with('README CONTENTS')
+    do_install
+  end
+  
+  describe 'readme_contents' do
+    it 'should work without arguments' do
+      do_install
+      lambda { readme_contents }.should_not raise_error(ArgumentError)
+    end
+  
+    it 'should accept no arguments' do
+      do_install
+      lambda { readme_contents(:foo) }.should raise_error(ArgumentError)
+    end
+  
+    it 'should read the plugin README.markdown file' do
+      do_install
+      IO.expects(:read).with(plugin_path('README.markdown'))
+      readme_contents
+    end
+  
+    it 'should return the contents of the plugin README.markdown file' do
+      do_install
+      IO.stubs(:read).with(plugin_path('README.markdown')).returns('README CONTENTS')
+      readme_contents.should == 'README CONTENTS'
+    end
+  end
 end
