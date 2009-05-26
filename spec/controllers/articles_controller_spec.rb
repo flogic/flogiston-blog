@@ -44,3 +44,39 @@ describe ArticlesController do
     end
   end
 end
+
+describe ArticlesController, 'show' do
+  before :each do
+    @article = Article.generate!
+  end
+  
+  def do_show(id='1')
+    get :show, :id => id
+  end
+  
+  it 'should be successful' do
+    do_show
+    response.should be_success
+  end
+
+  it 'should make an article available to the view' do
+    do_show
+    assigns[:article].should be_instance_of(Article)
+  end
+
+  it 'should make the desired article available to the view' do
+    @my_article = Article.generate!
+    do_show(@my_article.id)
+    assigns[:article].should == @my_article
+  end
+  
+  it 'should render the show template' do
+    do_show
+    response.should render_template('articles/show')
+  end
+  
+  it 'should use the normal layout' do
+    do_show
+    response.layout.should == 'layouts/application'
+  end
+end
