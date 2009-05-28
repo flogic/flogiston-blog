@@ -10,9 +10,14 @@ class Admin::ArticlesController < AdminController
   end
   
   def create
-    article = Article.new(params[:article])
-    article.save
-    redirect_to admin_article_path(article)
+    @article = Article.new(params[:article])
+    
+    if !preview?
+      @article.save
+      redirect_to admin_article_path(@article)
+    else
+      render :action => 'new'
+    end
   end
   
   def show
@@ -24,8 +29,21 @@ class Admin::ArticlesController < AdminController
   end
   
   def update
-    article = Article.find(params[:id])
-    article.update_attributes(params[:article])
-    redirect_to admin_article_path(article)
+    @article = Article.find(params[:id])
+    @article.attributes = params[:article]
+    
+    if !preview?
+      @article.save
+      redirect_to(admin_article_path(@article))
+    else
+      render :action => 'edit'
+    end
+  end
+  
+  
+  private
+  
+  def preview?
+    !params[:preview].blank?
   end
 end

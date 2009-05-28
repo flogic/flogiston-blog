@@ -65,6 +65,10 @@ describe Admin::ArticlesController do
   end
   
   describe 'create' do
+    before :each do
+      @article = Article.spawn
+    end
+    
     def do_post
       post :create, :article => { :title => 'What I Did This Summer', :content => "Nothing, because I'm really lazy." }
     end
@@ -83,6 +87,50 @@ describe Admin::ArticlesController do
       Article.delete_all
       do_post
       response.should redirect_to(admin_article_path(Article.first))
+    end
+    
+    describe 'and previewing' do
+      before :each do
+        @new_content = 'new content go here'
+      end
+      
+      def do_post
+        post :create, :article => @article.attributes.merge('content' => @new_content), :preview => true
+      end
+      
+      it 'should make the requested article available to the view' do
+        do_post
+        assigns[:article].should be_kind_of(Article)
+      end
+      
+      it 'should set the article attributes' do
+        do_post
+        assigns[:article].content.should == @new_content
+      end
+      
+      it 'should not save the article' do
+        lambda { do_post }.should_not change(Article, :count)
+      end
+
+      it 'should render the new template' do
+        do_post
+        response.should render_template('admin/articles/new')
+      end
+
+      it 'should use the admin layout' do
+        do_post
+        response.layout.should == 'layouts/admin'
+      end
+    end
+    
+    describe 'with an empty preview parameter' do
+      def do_post
+        post :create, :article => @article.attributes, :preview => ''
+      end
+      
+      it 'should create a new article' do
+        lambda { do_post }.should change(Article, :count).by(1)
+      end
     end
   end
   
@@ -177,6 +225,56 @@ describe Admin::ArticlesController do
     it 'should redirect to the admin show view for the requested article' do
       do_put
       response.should redirect_to(admin_article_path(@article))
+    end
+    
+    describe 'and previewing' do
+      before :each do
+        @new_content = 'new content goes here'
+      end
+      
+      def do_put
+        put :update, :id => @article_id, :article => @article.attributes.merge('content' => @new_content), :preview => true
+      end
+      
+      it 'should make the requested article available to the view' do
+        do_put
+        assigns[:article].id.should == @article.id
+      end
+      
+      it 'should set the article attributes' do
+        do_put
+        assigns[:article].content.should == @new_content
+      end
+      
+      it 'should not save the attributes' do
+        do_put
+        Article.find(@article_id).content.should_not == @new_content
+      end
+
+      it 'should render the edit template' do
+        do_put
+        response.should render_template('admin/articles/edit')
+      end
+
+      it 'should use the admin layout' do
+        do_put
+        response.layout.should == 'layouts/admin'
+      end
+    end
+    
+    describe 'with an empty preview parameter' do
+      before :each do
+        @new_title = 'New Title Goes Here'
+      end
+      
+      def do_put
+        put :update, :id => @article_id, :article => @article.attributes.merge('title' => @new_title), :preview => ''
+      end
+      
+      it 'should update the article with the provided attributes' do
+        do_put
+        Article.find(@article_id).title.should == @new_title
+      end
     end
   end
 end
