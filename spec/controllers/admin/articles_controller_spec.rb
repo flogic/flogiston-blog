@@ -350,4 +350,25 @@ describe Admin::ArticlesController do
       end
     end
   end
+  
+  describe 'destroy' do
+    before :each do
+      @article = Article.generate!
+      @article_id = @article.id.to_s
+    end
+
+    def do_delete
+      delete :destroy, :id => @article_id
+    end
+
+    it 'should destroy the specified article' do
+      do_delete
+      Article.find_by_id(@article_id).should be_nil
+    end
+
+    it 'should redirect to the admin articles list' do
+      do_delete
+      response.should redirect_to(admin_articles_path)
+    end
+  end
 end
