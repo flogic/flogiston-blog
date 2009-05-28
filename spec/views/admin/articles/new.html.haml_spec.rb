@@ -70,6 +70,21 @@ describe 'admin/articles/new.html.haml' do
     end
   end
   
+  describe 'when errors are available' do
+    it 'should display errors in an error region' do
+      @article.errors.add_to_base("error on this page")
+      do_render
+      response.should have_tag('div[class=?]', 'errors', :text => /error on this page/)
+    end
+  end
+  
+  describe 'when no errors are available' do
+    it 'should not display errors' do
+      do_render
+      response.should_not have_tag('div[class=?]', 'errors')
+    end
+  end
+  
   describe 'preview area' do
     before :each do
         @article.content = "

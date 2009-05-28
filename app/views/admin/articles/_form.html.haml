@@ -1,7 +1,9 @@
 -form_for [:admin, article] do |f|
   %input{ :type => 'hidden', :name => 'preview' }/
   .guide
-    = link_to 'markdown syntax guide', 'http://daringfireball.net/projects/markdown/syntax', :target => '_blank'
+    =link_to 'markdown syntax guide', 'http://daringfireball.net/projects/markdown/syntax', :target => '_blank'
+  -unless f.error_messages.blank?
+    .errors= f.error_messages
   .field
     %label{ :for => 'article_title' } Title:
     =f.text_field :title
