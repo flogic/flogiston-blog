@@ -62,4 +62,43 @@ describe 'admin/articles/edit.html.haml' do
       end
     end
   end
+  
+  describe 'preview area' do
+    before :each do
+        @article.content = "
+ * one
+ * two
+"
+    end
+
+    it 'should exist if the article has content' do
+      do_render
+      response.should have_tag('div[id=?]', 'preview')
+    end
+    
+    it 'should include the article content formatted with markdown' do
+      do_render
+      response.should have_tag('div[id=?]', 'preview') do
+        with_tag('li', :text => /one/)
+      end
+    end
+
+    it 'should not exist if the article content is the empty string' do
+      @article.content = ''
+      do_render
+      response.should_not have_tag('div[id=?]', 'preview')
+    end
+
+    it 'should not exist if the article content is nil' do
+      @article.content = nil
+      do_render
+      response.should_not have_tag('div[id=?]', 'preview')
+    end
+
+    it 'should not exist if the article content is a completely blank string' do
+      @article.content = '     '
+      do_render
+      response.should_not have_tag('div[id=?]', 'preview')
+    end
+  end
 end

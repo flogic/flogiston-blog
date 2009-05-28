@@ -8,3 +8,7 @@
     %label{ :for => 'article_content' } Content:
     =f.text_area  :content
   .submit= f.submit 'Submit'
+
+-unless article.content.blank?
+  #preview
+    =render :partial => 'articles/show', :object => article
