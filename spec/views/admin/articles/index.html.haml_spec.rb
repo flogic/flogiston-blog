@@ -56,6 +56,17 @@ describe 'admin/articles/index.html.haml' do
       end
     end
     
+    it 'should link to destroy the article' do
+      do_render
+      response.should have_tag('table[id=?]', 'articles') do
+        with_tag('tbody') do
+          with_tag('tr') do
+            with_tag('a[href=?][onclick*=?]', admin_article_path(@article), 'delete')
+          end
+        end
+      end
+    end
+    
     it 'should have a list item for every article' do
       other_article = Article.generate!(:title => 'Something Else', :content => 'or did I?')
       assigns[:articles] = [@article, other_article]

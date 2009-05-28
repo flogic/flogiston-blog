@@ -1,3 +1,4 @@
 =render :partial => 'articles/show', :object => @article
 %br
 =link_to '(edit)', edit_admin_article_path(@article)
+=link_to '(delete)', admin_article_path(@article), :confirm => 'Are you sure?', :method => :delete
