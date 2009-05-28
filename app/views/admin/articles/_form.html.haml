@@ -1,4 +1,5 @@
 -form_for [:admin, article] do |f|
+  %input{ :type => 'hidden', :name => 'preview' }/
   .guide
     = link_to 'markdown syntax guide', 'http://daringfireball.net/projects/markdown/syntax', :target => '_blank'
   .field
@@ -7,6 +8,8 @@
   .field
     %label{ :for => 'article_content' } Content:
     =f.text_area  :content
+  .submit.preview
+    = f.submit 'Preview', :onclick => "this.form['preview'].value = true"
   .submit= f.submit 'Submit'
 
 -unless article.content.blank?
