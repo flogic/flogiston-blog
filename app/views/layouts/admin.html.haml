@@ -1,7 +1,13 @@
 !!!
 %html
   %head
-    %title Blog Admin
-  
+    %title= @title
+    =stylesheet_link_tag 'flogiston-blog-admin'
   %body
-    =yield
+    #header
+      %ul
+        %li= link_to 'articles', admin_articles_path
+        |
+        %li= link_to 'new article', new_admin_article_path
+    #container
+      =yield

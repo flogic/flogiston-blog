@@ -70,9 +70,4 @@ describe 'admin/articles/index.html.haml' do
       end
     end
   end
-  
-  it 'should link to create a new article' do
-    do_render
-    response.should have_tag('a[href=?]', new_admin_article_path)
-  end
 end

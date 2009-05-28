@@ -5,8 +5,7 @@ describe 'admin/index.html.haml' do
     render 'admin/index.html.haml'
   end
   
-  it 'should link to the admin articles index' do
+  it 'should exist' do
     do_render
-    response.should have_tag('a[href=?]', admin_articles_path)
   end
 end

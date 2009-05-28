@@ -41,9 +41,4 @@ describe 'admin/articles/new.html.haml' do
       end
     end
   end
-  
-  it 'should link to the admin articles index' do
-    do_render
-    response.should have_tag('a[href=?]', admin_articles_path)
-  end
 end
