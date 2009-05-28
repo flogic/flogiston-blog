@@ -1,9 +1,10 @@
 -form_for [:admin, article] do |f|
-  %label{ :for => 'article_title' } Title:
-  =f.text_field :title
-  %br
-  %label{ :for => 'article_content' } Content:
-  %br
-  =f.text_area  :content
-  %br
-  =f.submit
+  .guide
+    = link_to 'markdown syntax guide', 'http://daringfireball.net/projects/markdown/syntax', :target => '_blank'
+  .field
+    %label{ :for => 'article_title' } Title:
+    =f.text_field :title
+  .field
+    %label{ :for => 'article_content' } Content:
+    =f.text_area  :content
+  .submit= f.submit 'Submit'
