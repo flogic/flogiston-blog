@@ -132,6 +132,42 @@ describe Admin::ArticlesController do
         lambda { do_post }.should change(Article, :count).by(1)
       end
     end
+    
+    describe 'when saving is unsuccessful' do
+      before :each do
+        @article.title = 'Test Title #198273'
+        Article.any_instance.stubs(:save).returns(false)
+      end
+      
+      def do_post
+        post :create, :article => @article.attributes
+      end
+      
+      it 'should be successful' do
+        do_post
+        response.should be_success
+      end
+      
+      it 'should make a new article available to the view' do
+        do_post
+        assigns[:article].should be_new_record
+      end
+      
+      it 'should initialize the article with the given attributes' do
+        do_post
+        assigns[:article].title.should == @article.title
+      end
+      
+      it 'should render the new template' do
+        do_post
+        response.should render_template('admin/articles/new')
+      end
+      
+      it 'should use the admin layout' do
+        do_post
+        response.layout.should == 'layouts/admin'
+      end
+    end
   end
   
   describe 'show' do
@@ -274,6 +310,43 @@ describe Admin::ArticlesController do
       it 'should update the article with the provided attributes' do
         do_put
         Article.find(@article_id).title.should == @new_title
+      end
+    end
+    
+    describe 'when saving is unsuccessful' do
+      before :each do
+        @article.stubs(:save).returns(false)
+        Article.stubs(:find).with(@article_id).returns(@article)
+        @new_title = 'Some Other Title, Yes'
+      end
+      
+      def do_put
+        put :update, :id => @article_id, :article => @article.attributes.merge('title' => @new_title)
+      end
+      
+      it 'should be successful' do
+        do_put
+        response.should be_success
+      end
+      
+      it 'should make the requested article available to the view' do
+        do_put
+        assigns[:article].id.should == @article.id
+      end
+      
+      it 'should set the article attributes' do
+        do_put
+        assigns[:article].title.should == @new_title
+      end
+      
+      it 'should render the edit template' do
+        do_put
+        response.should render_template('admin/articles/edit')
+      end
+      
+      it 'should use the admin layout' do
+        do_put
+        response.layout.should == 'layouts/admin'
       end
     end
   end

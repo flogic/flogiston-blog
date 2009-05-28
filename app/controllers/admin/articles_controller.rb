@@ -12,8 +12,7 @@ class Admin::ArticlesController < AdminController
   def create
     @article = Article.new(params[:article])
     
-    if !preview?
-      @article.save
+    if !preview? and @article.save
       redirect_to admin_article_path(@article)
     else
       render :action => 'new'
@@ -32,8 +31,7 @@ class Admin::ArticlesController < AdminController
     @article = Article.find(params[:id])
     @article.attributes = params[:article]
     
-    if !preview?
-      @article.save
+    if !preview? and @article.save
       redirect_to(admin_article_path(@article))
     else
       render :action => 'edit'
