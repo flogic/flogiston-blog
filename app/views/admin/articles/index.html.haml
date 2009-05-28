@@ -1,5 +1,11 @@
-%ol#articles
-  -@articles.each do |article|
-    %li
-      =link_to article.title, admin_article_path(article)
-      =link_to '(edit)', edit_admin_article_path(article)
+%table#articles
+  %thead
+    %tr.header
+      %th title
+      %th actions
+  %tbody
+    - @articles.each do |article|
+      %tr.body
+        %td= link_to article.title, admin_article_path(article)
+        %td.actions
+          = link_to 'edit', edit_admin_article_path(article)

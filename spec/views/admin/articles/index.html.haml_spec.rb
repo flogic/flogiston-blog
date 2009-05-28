@@ -12,38 +12,46 @@ describe 'admin/articles/index.html.haml' do
   
   it 'should have an articles list' do
     do_render
-    response.should have_tag('ol[id=?]', 'articles')
+    response.should have_tag('table[id=?]', 'articles')
   end
   
   describe 'articles list' do
-    it 'should have a list item for the article' do
+    it 'should have a row for the article' do
       do_render
-      response.should have_tag('ol[id=?]', 'articles') do
-        with_tag('li')
+      response.should have_tag('table[id=?]', 'articles') do
+        with_tag('tbody') do
+          with_tag('tr')
+        end
       end
     end
     
     it 'should include the article title' do
       do_render
-      response.should have_tag('ol[id=?]', 'articles') do
-        with_tag('li', :text => Regexp.new(Regexp.escape(@article.title)))
+      response.should have_tag('table[id=?]', 'articles') do
+        with_tag('tbody') do
+          with_tag('tr', :text => Regexp.new(Regexp.escape(@article.title)))
+        end
       end
     end
     
     it 'should link to the article' do
       do_render
-      response.should have_tag('ol[id=?]', 'articles') do
-        with_tag('li') do
-          with_tag('a[href=?]', admin_article_path(@article))
+      response.should have_tag('table[id=?]', 'articles') do
+        with_tag('tbody') do
+          with_tag('tr') do
+            with_tag('a[href=?]', admin_article_path(@article))
+          end
         end
       end
     end
     
     it 'should link to edit the article' do
       do_render
-      response.should have_tag('ol[id=?]', 'articles') do
-        with_tag('li') do
-          with_tag('a[href=?]', edit_admin_article_path(@article))
+      response.should have_tag('table[id=?]', 'articles') do
+        with_tag('tbody') do
+          with_tag('tr') do
+            with_tag('a[href=?]', edit_admin_article_path(@article))
+          end
         end
       end
     end
@@ -53,10 +61,12 @@ describe 'admin/articles/index.html.haml' do
       assigns[:articles] = [@article, other_article]
       
       do_render
-      response.should have_tag('ol[id=?]', 'articles') do
-        [@article, other_article].each do |article|
-          with_tag('li') do
-            with_tag('a[href=?]', admin_article_path(article))
+      response.should have_tag('table[id=?]', 'articles') do
+        with_tag('tbody') do
+          [@article, other_article].each do |article|
+            with_tag('tr') do
+              with_tag('a[href=?]', admin_article_path(article))
+            end
           end
         end
       end
@@ -65,8 +75,10 @@ describe 'admin/articles/index.html.haml' do
     it 'should have no list items if there are no articles' do
       assigns[:articles] = []
       do_render
-      response.should have_tag('ol[id=?]', 'articles') do
-        without_tag('li')
+      response.should have_tag('table[id=?]', 'articles') do
+        with_tag('tbody') do
+          without_tag('tr')
+        end
       end
     end
   end
