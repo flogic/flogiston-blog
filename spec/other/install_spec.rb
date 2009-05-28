@@ -64,10 +64,10 @@ describe 'the plugin install.rb script' do
     do_install
   end
   
-  # it 'should copy in the stylesheets to the public/ directory' do
-  #   FileUtils.expects(:cp_r).with(plugin_path('public/stylesheets/sass'), rails_path('public/stylesheets'))
-  #   do_install
-  # end
+  it 'should copy in the stylesheets to the public/ directory' do
+    FileUtils.expects(:cp_r).with(plugin_path('public/stylesheets/sass'), rails_path('public/stylesheets/sass'))
+    do_install
+  end
 
   describe 'when a RAILS_ROOT/db/migrate directory does not exist' do
     before :each do
