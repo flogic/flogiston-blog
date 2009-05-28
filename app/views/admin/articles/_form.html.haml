@@ -4,12 +4,7 @@
     =link_to 'markdown syntax guide', 'http://daringfireball.net/projects/markdown/syntax', :target => '_blank'
   -unless f.error_messages.blank?
     .errors= f.error_messages
-  .field
-    %label{ :for => 'article_title' } Title:
-    =f.text_field :title
-  .field
-    %label{ :for => 'article_content' } Content:
-    =f.text_area  :content
+  =render :partial => 'form_fields', :locals => { :f => f }
   .submit.preview
     = f.submit 'Preview', :onclick => "this.form['preview'].value = true"
   .submit= f.submit 'Submit'
