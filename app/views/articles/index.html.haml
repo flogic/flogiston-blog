@@ -1,3 +1,5 @@
 %ul.articles
   - @articles.each do |article|
     %li.article= link_to article.title, article_path(article)
+    
+.pagination= will_paginate(@articles)
