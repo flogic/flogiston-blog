@@ -11,7 +11,7 @@ describe 'admin/articles/new.html.haml' do
   
   it 'should include a link to open the markdown syntax guide on a new page' do
     do_render
-    response.should have_tag('a[href=?][target=?]', 'http://daringfireball.net/projects/markdown/syntax', '_blank')
+    response.should have_tag('a[href=?][target=?]', 'http://daringfireball.net/projects/markdown/basics', '_blank')
   end
   
   it 'should have a new-article form' do

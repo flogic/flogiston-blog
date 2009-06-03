@@ -1,7 +1,7 @@
 -form_for [:admin, article] do |f|
   %input{ :type => 'hidden', :name => 'preview' }/
   .guide
-    =link_to 'markdown syntax guide', 'http://daringfireball.net/projects/markdown/syntax', :target => '_blank'
+    =link_to 'markdown syntax guide', 'http://daringfireball.net/projects/markdown/basics', :target => '_blank'
   -unless f.error_messages.blank?
     .errors= f.error_messages
   =render :partial => 'form_fields', :locals => { :f => f }
