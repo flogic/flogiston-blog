@@ -1,7 +1,11 @@
+- title = "Flogiston Blog"
 !!!
 %html
   %head
-    %title Blog
+    %title= title
+    =stylesheet_link_tag 'screen'    
   
   %body
-    =yield
+    .main
+      %h1= title
+      =yield
