@@ -25,6 +25,12 @@ describe ArticlesController, 'index' do
     assigns[:articles].should == []
   end
     
+  it 'should paginate found articles in groups of 10' do
+    11.times { Article.generate! }
+    do_get
+    assigns[:articles].size.should == 10
+  end
+  
   it 'should render the index template' do
     do_get
     response.should render_template('articles/index')
