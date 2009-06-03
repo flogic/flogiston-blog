@@ -31,7 +31,7 @@ config/database.yml
 spec/spec.opts
 spec/rcov.opts
 public/javascripts/all.js
-public/stylesheets/flogiston-blog-admin.css
+public/stylesheets/*.css
 .dotest/*
 }
 
