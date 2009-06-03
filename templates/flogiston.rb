@@ -9,6 +9,7 @@ plugin 'object_daddy', :git => 'git://github.com/flogic/object_daddy.git'
 gem 'mocha'
 gem 'haml'
 gem 'rdiscount'
+gem 'mislav-will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
 
 rake("gems:install")
 rake("gems:unpack")
