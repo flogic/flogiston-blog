@@ -18,7 +18,9 @@ describe 'articles/index.html.haml' do
   
   it 'should include links to the articles' do
     do_render
-    response.should have_tag('a', 10)
+    response.should have_tag('ul.articles') do
+      with_tag('a[href*=?]', Regexp.new(Regexp.escape(articles_path + "/") + '\d+'), 10)
+    end
   end
     
   it 'should not error if the article is nil' do
