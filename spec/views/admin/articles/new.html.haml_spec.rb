@@ -3,6 +3,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), %w[.. .. .. spec_help
 describe 'admin/articles/new.html.haml' do
   before :each do
     assigns[:article] = @article = Article.new
+    template.stubs(:custom_form_fields).returns([])
   end
   
   def do_render
@@ -30,6 +31,24 @@ describe 'admin/articles/new.html.haml' do
       response.should have_tag('form[id=?]', 'new_article') do
         with_tag('input[type=?][name=?]', 'text', 'article[title]')
       end
+    end
+    
+    # I'd rather do this really behaviorally, but that would seem to require making dummy files
+    # and that's just a pain
+    it 'should ask for custom form fields' do
+      template.expects(:custom_form_fields).returns([])
+      do_render
+    end
+    
+    it 'should render a partial for every custom form field' do
+      pending "figuring out why expects_render doesn't work"
+      fields = %w[one two three]
+      template.stubs(:custom_form_fields).returns(fields)
+      fields.each do |field|
+        template.expects_render(:partial => field)  # find a way to check passing the form-builder object
+      end
+      
+      do_render
     end
     
     it 'should have a content input' do

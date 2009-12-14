@@ -1,6 +1,8 @@
 .field
   %label{ :for => 'article_title' } Title:
   =f.text_field :title
+-custom_form_fields.each do |field|
+  =render :partial => field, :locals => { :f => f }
 .field
   %label{ :for => 'article_content' } Content:
   =f.text_area  :content
