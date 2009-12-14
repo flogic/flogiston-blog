@@ -33,4 +33,14 @@ describe ArticlesHelper do
       helper.format_text(nil).should == ''
     end
   end
+  
+  it 'should have a means of getting custom form fields' do
+    helper.should respond_to(:custom_form_fields)
+  end
+  
+  describe 'custom form fields' do
+    it 'should start as an empty array' do
+      helper.custom_form_fields.should == []
+    end
+  end
 end
