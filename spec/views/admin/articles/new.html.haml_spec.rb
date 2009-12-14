@@ -26,6 +26,11 @@ describe 'admin/articles/new.html.haml' do
       response.should have_tag('form[id=?][action=?][method=?]', 'new_article', admin_articles_path, 'post')
     end
     
+    it 'should be multipart' do
+      do_render
+      response.should have_tag('form[id=?][enctype=?]', 'new_article', 'multipart/form-data')
+    end
+    
     it 'should have a title input' do
       do_render
       response.should have_tag('form[id=?]', 'new_article') do

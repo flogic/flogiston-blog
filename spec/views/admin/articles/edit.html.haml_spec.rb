@@ -27,6 +27,11 @@ describe 'admin/articles/edit.html.haml' do
       end
     end
     
+    it 'should be multipart' do
+      do_render
+      response.should have_tag('form[id=?][enctype=?]', "edit_article_#{@article.id}", 'multipart/form-data')
+    end
+    
     it 'should have a title input' do
       do_render
       response.should have_tag('form[id=?]', "edit_article_#{@article.id}") do

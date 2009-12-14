@@ -1,4 +1,4 @@
--form_for [:admin, article] do |f|
+-form_for [:admin, article], :html => { :multipart => true } do |f|
   %input{ :type => 'hidden', :name => 'preview' }/
   .guide
     =link_to 'markdown syntax guide', 'http://daringfireball.net/projects/markdown/basics', :target => '_blank'
