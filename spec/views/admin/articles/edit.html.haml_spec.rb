@@ -3,6 +3,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), %w[.. .. .. spec_help
 describe 'admin/articles/edit.html.haml' do
   before :each do
     assigns[:article] = @article = Article.generate!(:title => 'Who Is To Say?', :content => 'Nobody, really.')
+    template.stubs(:custom_form_fields).returns([])
   end
   
   def do_render

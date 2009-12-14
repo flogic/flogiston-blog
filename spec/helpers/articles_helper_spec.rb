@@ -43,4 +43,31 @@ describe ArticlesHelper do
       helper.custom_form_fields.should == []
     end
   end
+  
+  it 'should have a means of registering fields' do
+    ArticlesHelper.should respond_to(:register_field)
+  end
+  
+  describe 'registering fields' do
+    it 'should accept a field name' do
+      lambda { ArticlesHelper.register_field('something') }.should_not raise_error(ArgumentError)
+    end
+    
+    it 'should require a field name' do
+      lambda { ArticlesHelper.register_field }.should raise_error(ArgumentError)
+    end
+    
+    it 'should add the given field to the custom fields' do
+      f = 'someawesomefield'
+      ArticlesHelper.register_field(f)
+      helper.custom_form_fields.last.should == f
+    end
+    
+    it 'should not remove any already-set custom fields' do
+      fields = helper.custom_form_fields.dup
+      f = 'somethingelse'
+      ArticlesHelper.register_field(f)
+      helper.custom_form_fields.should == (fields + [f])
+    end
+  end
 end

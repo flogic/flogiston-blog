@@ -6,6 +6,8 @@ RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+require File.expand_path(File.join(RAILS_ROOT, *%w[app helpers articles_helper]))  # necessary for custom form fields
+
 Rails::Initializer.run do |config|
   config.gem 'rdiscount'
   config.gem 'haml'
