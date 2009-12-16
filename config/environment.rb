@@ -7,6 +7,7 @@ RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 require File.expand_path(File.join(RAILS_ROOT, *%w[app helpers articles_helper]))  # necessary for custom form fields
+require File.expand_path(File.join(RAILS_ROOT, *%w[app helpers admin_helper]))  # necessary for admin sections
 
 Rails::Initializer.run do |config|
   config.gem 'rdiscount'
