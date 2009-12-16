@@ -10,4 +10,16 @@ module AdminHelper
   end
 
   register_section('articles')
+  
+  def admin_section_links
+    admin_sections.inject([]) do |links, section|
+      plural = section
+      single = plural.singularize
+      
+      links + [
+        [plural,          send("admin_#{plural}_path")],
+        ["new #{single}", send("new_admin_#{single}_path")]
+      ]
+    end
+  end
 end

@@ -6,8 +6,8 @@
   %body
     #header
       %ul
-        %li= link_to 'articles', admin_articles_path
-        |
-        %li= link_to 'new article', new_admin_article_path
+        -admin_section_links.each do |text, path|
+          %li= link_to text, path
+          |
     #container
       =yield
